@@ -7,11 +7,46 @@
 namespace CityInfo.API.Migrations
 {
     /// <inheritdoc />
-    public partial class DataSeed : Migration
+    public partial class CityInfoDBInitialization : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Cities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cities", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PointsOfInterests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    CityId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PointsOfInterests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PointsOfInterests_Cities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "Cities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Cities",
                 columns: new[] { "Id", "Description", "Name" },
@@ -37,70 +72,21 @@ namespace CityInfo.API.Migrations
                     { 7, 4, "One of the most beautiful urban parks in the world, lots of interesting species native to Japan to discover!", "Shinjuku Gyoen National Garden" },
                     { 8, 4, "Historic temple to the goddess of mercy!", "Senso-ji" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PointsOfInterests_CityId",
+                table: "PointsOfInterests",
+                column: "CityId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "PointsOfInterests",
-                keyColumn: "Id",
-                keyValue: 1);
+            migrationBuilder.DropTable(
+                name: "PointsOfInterests");
 
-            migrationBuilder.DeleteData(
-                table: "PointsOfInterests",
-                keyColumn: "Id",
-                keyValue: 2);
-
-            migrationBuilder.DeleteData(
-                table: "PointsOfInterests",
-                keyColumn: "Id",
-                keyValue: 3);
-
-            migrationBuilder.DeleteData(
-                table: "PointsOfInterests",
-                keyColumn: "Id",
-                keyValue: 4);
-
-            migrationBuilder.DeleteData(
-                table: "PointsOfInterests",
-                keyColumn: "Id",
-                keyValue: 5);
-
-            migrationBuilder.DeleteData(
-                table: "PointsOfInterests",
-                keyColumn: "Id",
-                keyValue: 6);
-
-            migrationBuilder.DeleteData(
-                table: "PointsOfInterests",
-                keyColumn: "Id",
-                keyValue: 7);
-
-            migrationBuilder.DeleteData(
-                table: "PointsOfInterests",
-                keyColumn: "Id",
-                keyValue: 8);
-
-            migrationBuilder.DeleteData(
-                table: "Cities",
-                keyColumn: "Id",
-                keyValue: 1);
-
-            migrationBuilder.DeleteData(
-                table: "Cities",
-                keyColumn: "Id",
-                keyValue: 2);
-
-            migrationBuilder.DeleteData(
-                table: "Cities",
-                keyColumn: "Id",
-                keyValue: 3);
-
-            migrationBuilder.DeleteData(
-                table: "Cities",
-                keyColumn: "Id",
-                keyValue: 4);
+            migrationBuilder.DropTable(
+                name: "Cities");
         }
     }
 }

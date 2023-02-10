@@ -14,7 +14,6 @@ namespace CityInfo.API.Controllers
     public class PointsOfInterestController : ControllerBase
     {
 
-
         #region Fields
 
         private readonly ICityInfoRepository _cityInfoRepository;

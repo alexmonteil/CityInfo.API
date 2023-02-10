@@ -17,12 +17,18 @@ namespace CityInfo.API.Repositories
 
         public async Task<IEnumerable<City>> GetCitiesAsync()
         {
-            return await _context.Cities.Include(c => c.PointsOfInterest).OrderBy(c => c.Name).ToListAsync();
+            return await _context.Cities.OrderBy(c => c.Name).ToListAsync();
         }
 
-        public async Task<City?> GetCityByIdAsync(int cityId)
+        public async Task<City?> GetCityByIdAsync(int cityId, bool includePointsOfInterest)
         {
-            return await _context.Cities.Include(c => c.PointsOfInterest).Where(c => c.Id == cityId).FirstOrDefaultAsync();
+            if (includePointsOfInterest)
+            {
+                return await _context.Cities.Include(c => c.PointsOfInterest).Where(c => c.Id == cityId)
+                    .FirstOrDefaultAsync();
+            }
+
+            return await _context.Cities.Where(c => c.Id == cityId).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<PointOfInterest>> GetPointsOfInterestForCityAsync(int cityId)
