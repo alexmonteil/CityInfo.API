@@ -18,6 +18,7 @@ builder.Host.UseSerilog();
 // Add services to the container.
 builder.Services.AddTransient<IMailService, DefaultMailService>();
 builder.Services.AddScoped<ICityInfoRepository, CityInfoRepository>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<CityInfoContext>(options => options.UseSqlite(builder.Configuration["ConnectionStrings:CityInfoDBConnectionString"]));
 builder.Services.AddControllers(options =>
 {
