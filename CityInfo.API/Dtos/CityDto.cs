@@ -13,7 +13,7 @@ namespace CityInfo.API.Dtos
 
         [MaxLength(200)]
         public string? Description { get; set; }
-        public ICollection<PointOfInterest> PointsOfInterest { get; set; } = new List<PointOfInterest>();
+        public ICollection<PointOfInterestDto> PointsOfInterest { get; set; } = new List<PointOfInterestDto>();
         public int NumberOfPointsOfInterest => PointsOfInterest.Count;
     }
 }
