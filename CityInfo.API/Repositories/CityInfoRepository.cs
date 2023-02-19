@@ -54,10 +54,12 @@ namespace CityInfo.API.Repositories
         public async Task AddPointOfInterestForCityAsync(int cityId, PointOfInterest pointOfInterest)
         {
             var city = await GetCityByIdAsync(cityId, false);
-            if (city != null)
-            {
-                city.PointsOfInterest.Add(pointOfInterest);
-            }
+            city?.PointsOfInterest.Add(pointOfInterest);
+        }
+
+        public void DeletePointOfInterest(PointOfInterest pointOfInterest)
+        {
+            _context.PointsOfInterests.Remove(pointOfInterest);
         }
     }
 }

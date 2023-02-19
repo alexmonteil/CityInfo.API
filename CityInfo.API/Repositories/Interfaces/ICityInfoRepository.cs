@@ -7,9 +7,10 @@ namespace CityInfo.API.Repositories.Interfaces
         Task<IEnumerable<City>> GetCitiesAsync();
         Task<City?> GetCityByIdAsync(int id, bool includePointsOfInterest = false);
         Task<IEnumerable<PointOfInterest>> GetPointsOfInterestForCityAsync(int cityId);
-        Task<PointOfInterest> GetPointOfInterestForCityByIdAsync(int cityId, int pointOfInterestId);
+        Task<PointOfInterest?> GetPointOfInterestForCityByIdAsync(int cityId, int pointOfInterestId);
         Task<bool> CityExistsAsync(int cityId);
         Task<bool> SaveChangesAsync();
         Task AddPointOfInterestForCityAsync(int cityId, PointOfInterest pointOfInterest);
+        void DeletePointOfInterest(PointOfInterest pointOfInterest);
     }
 }
