@@ -25,6 +25,15 @@ namespace CityInfo.API.Controllers
 
         #region Public Methods
 
+        /// <summary>
+        /// Get a list of cities
+        /// </summary>
+        /// <param name="name">The name of the city to filter</param>
+        /// <param name="searchQuery">The text to search for</param>
+        /// <param name="pageNumber">The page number to request for paging</param>
+        /// <param name="pageSize">The number of records per page maximum is 20</param>
+        /// <returns>An ActionResult including an IEnumerable of CityDtoWithoutPOI</returns>
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CityDtoWithoutPOI>>> GetCities([FromQuery] string? name, string? searchQuery, int pageNumber = 1, int pageSize = 10)
         {
@@ -38,7 +47,17 @@ namespace CityInfo.API.Controllers
             return Ok(_mapper.Map<IEnumerable<CityDtoWithoutPOI>>(cities));
         }
 
+        /// <summary>
+        /// Get a city by id
+        /// </summary>
+        /// <param name="id">The id of the city</param>
+        /// <param name="includePointsOfInterest">whether or not to include the city's points of interests</param>
+        /// <returns></returns>
+
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetCity(int id, bool includePointsOfInterest = false)
         {
             var city = await _cityInfoRepository.GetCityByIdAsync(id, includePointsOfInterest);

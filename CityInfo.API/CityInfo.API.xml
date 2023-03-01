@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CityInfo.API</name>
+    </assembly>
+    <members>
+        <member name="M:CityInfo.API.Controllers.CitiesController.GetCities(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Get a list of cities
+            </summary>
+            <param name="name">The name of the city to filter</param>
+            <param name="searchQuery">The text to search for</param>
+            <param name="pageNumber">The page number to request for paging</param>
+            <param name="pageSize">The number of records per page maximum is 20</param>
+            <returns>An ActionResult including an IEnumerable of CityDtoWithoutPOI</returns>
+        </member>
+        <member name="M:CityInfo.API.Controllers.CitiesController.GetCity(System.Int32,System.Boolean)">
+            <summary>
+            Get a city by id
+            </summary>
+            <param name="id">The id of the city</param>
+            <param name="includePointsOfInterest">whether or not to include the city's points of interests</param>
+            <returns></returns>
+        </member>
+        <member name="T:CityInfo.API.Migrations.CityInfoDBInitialization">
+            <inheritdoc />
+        </member>
+        <member name="M:CityInfo.API.Migrations.CityInfoDBInitialization.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:CityInfo.API.Migrations.CityInfoDBInitialization.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:CityInfo.API.Migrations.CityInfoDBInitialization.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
